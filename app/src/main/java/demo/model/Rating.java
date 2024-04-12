@@ -18,8 +18,8 @@ public class Rating {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tour_id", nullable = false)
-    private Tour tour;
+    @JoinColumn(name = "arrangement_id", nullable = false)
+    private Arrangement arrangement;
 
     @Column(name = "rating_value", nullable = false)
     private Integer ratingValue;
@@ -36,9 +36,9 @@ public class Rating {
     public Rating() {
     }
 
-    public Rating(User user, Tour tour, Integer ratingValue, String comment, LocalDate ratingDate) {
+    public Rating(User user, Arrangement arragment, Integer ratingValue, String comment, LocalDate ratingDate) {
         this.user = user;
-        this.tour = tour;
+        this.arrangement = arragment;
         this.ratingValue = ratingValue;
         this.comment = comment;
         this.ratingDate = ratingDate;
@@ -61,12 +61,13 @@ public class Rating {
         this.user = user;
     }
 
-    public Tour getTour() {
-        return tour;
+
+    public Arrangement getArrangement() {
+        return arrangement;
     }
 
-    public void setTour(Tour tour) {
-        this.tour = tour;
+    public void setArrangement(Arrangement arrangement) {
+        this.arrangement = arrangement;
     }
 
     public Integer getRatingValue() {

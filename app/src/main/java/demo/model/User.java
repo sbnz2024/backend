@@ -46,6 +46,13 @@ public class User {
     public User() {
     }
 
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
 
     public Integer getId() {
         return id;

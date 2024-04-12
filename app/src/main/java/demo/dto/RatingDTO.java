@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class RatingDTO {
 
     private Integer userId;
-    private Integer tourId;
+    private Integer arrangementId; // Ispravljeno ime polja
     private Integer ratingValue;
     private String comment;
     private LocalDate ratingDate;
@@ -15,9 +15,9 @@ public class RatingDTO {
     public RatingDTO() {
     }
 
-    public RatingDTO(Integer userId, Integer tourId, Integer ratingValue, String comment, LocalDate ratingDate) {
+    public RatingDTO(Integer userId, Integer arrangementId, Integer ratingValue, String comment, LocalDate ratingDate) {
         this.userId = userId;
-        this.tourId = tourId;
+        this.arrangementId = arrangementId;
         this.ratingValue = ratingValue;
         this.comment = comment;
         this.ratingDate = ratingDate;
@@ -25,7 +25,7 @@ public class RatingDTO {
 
     public RatingDTO(Rating rating) {
         this.userId = rating.getUser().getId();
-        this.tourId = rating.getTour().getIdTour();
+        this.arrangementId = rating.getArrangement().getId();
         this.ratingValue = rating.getRatingValue();
         this.comment = rating.getComment();
         this.ratingDate = rating.getRatingDate();
@@ -41,12 +41,12 @@ public class RatingDTO {
         this.userId = userId;
     }
 
-    public Integer getTourId() {
-        return tourId;
+    public Integer getArrangementId() {
+        return arrangementId;
     }
 
-    public void setTourId(Integer tourId) {
-        this.tourId = tourId;
+    public void setArrangementId(Integer arrangementId) {
+        this.arrangementId = arrangementId;
     }
 
     public Integer getRatingValue() {
