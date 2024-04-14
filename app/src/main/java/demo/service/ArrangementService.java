@@ -16,7 +16,6 @@ public class ArrangementService {
 
     @Autowired
     private ArrangementRepository arrangementRepository;
-
     @Autowired
     private TourRepository tourRepository;
 
