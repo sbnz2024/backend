@@ -1,6 +1,8 @@
 package demo.model;
 
 import jakarta.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,6 +11,10 @@ public class Arrangement {
 
     public enum ArrangementType {
         FAMILY, GROUP, INDIVIDUAL
+    }
+
+    public enum Grade {
+        GOOD,BAD,NEUTRAL
     }
 
     @Id
@@ -31,6 +37,22 @@ public class Arrangement {
     @Column(name = "type", nullable = false)
     private ArrangementType type;
 
+    @Column(name="state")
+    private  Boolean state;
+
+    @Column(name="dateAdded")
+    private Date dateAdded;
+
+    @Column(name="popular")
+    private Boolean popular;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="grade")
+    private Grade grade;
+
+    @Column(name="averangeRating")
+    private Double averangeRating;
+
     @OneToMany(mappedBy = "arrangement", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tour> tours;
 
@@ -49,6 +71,41 @@ public class Arrangement {
         this.type = type;
         this.tours = tours;
         this.ratings = null;
+        this.state=null;
+        this.dateAdded=null;
+        this.popular=null;
+        this.grade=null;
+        this.averangeRating=0.0;
+    }
+
+    public Double calculateAverageRating() {
+        if (ratings == null || ratings.isEmpty()) {
+            return 0.0; // Ako nema ocena, prosečna ocena je 0
+        }
+
+        double sum = 0.0;
+        for (Rating rating : ratings) {
+            sum += rating.getRatingValue();
+        }
+        return sum / ratings.size();
+    }
+
+
+
+    public Double getAverangeRating() {
+        return averangeRating;
+    }
+
+    public void setAverangeRating(Double averangeRating) {
+        this.averangeRating = averangeRating;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
     public List<Rating> getRatings() {
@@ -114,5 +171,29 @@ public class Arrangement {
 
     public void setTours(List<Tour> tours) {
         this.tours = tours;
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public Boolean getPopular() {
+        return popular;
+    }
+
+    public void setPopular(Boolean popular) {
+        this.popular = popular;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
     }
 }
