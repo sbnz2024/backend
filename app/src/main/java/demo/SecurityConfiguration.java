@@ -2,7 +2,7 @@ package demo;
 
 
 import demo.security.JwtAuthenticationFilter;
-import jakarta.annotation.PostConstruct;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +39,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
     private static final String[] WHITE_LIST_URL = {
             "/api/auth/authenticate",
@@ -52,18 +52,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final AuthenticationProvider authenticationProvider;
 
 
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors().configurationSource(corsConfigurationSource()).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests((requests) -> requests
-                        .antMatchers(WHITE_LIST_URL).permitAll()
-                        .anyRequest().authenticated())
+
+                .sessionManagement((sess) -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests((requests) -> requests
+                        //.antMatchers(WHITE_LIST_URL).permitAll()
+                        //.anyRequest().authenticated())
+                        .anyRequest().permitAll())
+                .cors(Customizer.withDefaults())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable();
+                .csrf(AbstractHttpConfigurer::disable)
+                .authenticationProvider(authenticationProvider);
+
+
+
+        return http.build();
     }
+
+
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -77,4 +85,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return source;
     }
+
+
+
+
 }

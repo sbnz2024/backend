@@ -23,6 +23,7 @@ demo\dto\AuthenticationRequest$AuthenticationRequestBuilder.class
 demo\model\Tour.class
 demo\controller\TourController.class
 demo\controller\UserController.class
+demo\Util\DebugAgendaEventListener.class
 demo\controller\RatingController.class
 demo\repository\RatingRepository.class
 demo\security\JwtAuthenticationFilter.class
@@ -31,5 +32,6 @@ demo\controller\ArrangementController.class
 demo\security\RestAuthenticationEntryPoint.class
 demo\model\Account.class
 demo\repository\ArrangementRepository.class
+demo\model\Arrangement$Grade.class
 demo\repository\UserRepository.class
 demo\service\ArrangementService.class

@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String username;
 
-        String authToken = tokenUtils.getToken((jakarta.servlet.http.HttpServletRequest) request);
+        String authToken = tokenUtils.getToken(request);
 
         try {
             if (authToken != null) {

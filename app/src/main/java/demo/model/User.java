@@ -1,13 +1,18 @@
 package demo.model;
 
 
-import jakarta.persistence.*;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name="user_tourist_app")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +33,10 @@ public class User {
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Role role;
 
-    @OneToMany(mappedBy = "user_tourist_app", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Rating> ratings;
 
 
@@ -70,6 +77,13 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(this.role);
+        return authorities;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -79,7 +93,27 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {

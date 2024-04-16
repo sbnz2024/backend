@@ -1,4 +1,31 @@
 package rules;
 
-import demo.model.*;
+import demo.model.Arrangement;
+import java.util.Date
 
+rule "Aranžman je popularan"
+when
+$arragment : Arrangement(ratings.size() >=20 || ratings.size()>=10 , state==true)
+then
+modify($arragment){setPopular(true)}
+end
+
+rule "NoviAranžman"
+when
+    $arrangement: Arrangement(dateAdded >= (new Date() - 30*24*60*60*1000)) // Proveravamo da li je datum dodavanja u poslednjih 30 dana
+then
+    $arrangement.setState(true); // Postavljamo polje "Nov" na true za novi aranžman
+end
+
+rule "OdrediStatusAranžmana"
+when
+    $arrangement: Arrangement($averageRating: calculateAverageRating())
+then
+    if ($averageRating >= 4) {
+        $arrangement.setGrade(Arrangement.Grade.GOOD);
+    } else if ($averageRating <= 2.5) {
+        $arrangement.setGrade(Arrangement.Grade.BAD);
+    } else {
+        $arrangement.setGrade(Arrangement.Grade.NEUTRAL);
+    }
+end

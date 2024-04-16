@@ -17,7 +17,7 @@ import org.kie.api.runtime.KieSession;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "api/arrangments")
+@RequestMapping(value = "api/arrangements")
 public class ArrangementController {
 
     @Autowired
