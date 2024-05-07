@@ -39,6 +39,7 @@ rule "Novi aranžman po datumu dodavanja"
     when
         $a : Arrangement(dateAdded != null && dateAdded.after(DateUtils.addMonths(new Date(), -1)))
     then
+        System.out.println("Novi aranžman po datumu dodavanja" + $a.getName());
         $a.setState(true);
         update($a);
 end

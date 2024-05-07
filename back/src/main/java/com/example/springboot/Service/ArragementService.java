@@ -8,6 +8,8 @@ import com.example.springboot.model.Tour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +35,7 @@ public class ArragementService {
         arrangement.setPrice(arrangementDTO.getPrice());
         arrangement.setImage(arrangementDTO.getImage());
         arrangement.setType(arrangementDTO.getType());
+        arrangement.setDateAdded(new Date());
         arrangementRepository.save(arrangement);
 
         // Čuvanje tura u bazi
