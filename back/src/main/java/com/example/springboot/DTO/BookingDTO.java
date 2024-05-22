@@ -12,7 +12,7 @@ public class BookingDTO {
     private Integer userId;
     private Integer arrangementId;
     private Date bookingDate;
-    private List<TourDTO> selectedTours;
+    private List<Integer> selectedTours;
     private Integer numberOfParticipants;
     private Double totalPrice;
 
@@ -20,25 +20,23 @@ public class BookingDTO {
     }
 
 
-
-
-
-    public BookingDTO(Integer id, Integer id1, Integer id2, Date bookingDate, List<Tour> selectedTours, Integer numberOfParticipants, Double totalPrice) {
-
+    public BookingDTO(Integer id, Integer userId, Integer arrangementId, Date bookingDate, List<Integer> selectedTours, Integer numberOfParticipants, Double totalPrice) {
         this.id = id;
         this.userId = userId;
         this.arrangementId = arrangementId;
         this.bookingDate = bookingDate;
-        // Assuming you have a conversion method from Tour to TourDTO
-        this.selectedTours = selectedTours.stream().map(TourDTO::new).collect(Collectors.toList());
+        this.selectedTours = selectedTours;
         this.numberOfParticipants = numberOfParticipants;
         this.totalPrice = totalPrice;
-
-
-
-
     }
 
+    public List<Integer> getSelectedTours() {
+        return selectedTours;
+    }
+
+    public void setSelectedTours(List<Integer> selectedTours) {
+        this.selectedTours = selectedTours;
+    }
 
     public Integer getId() {
         return id;
@@ -72,13 +70,9 @@ public class BookingDTO {
         this.bookingDate = bookingDate;
     }
 
-    public List<TourDTO> getSelectedTours() {
-        return selectedTours;
-    }
 
-    public void setSelectedTours(List<TourDTO> selectedTours) {
-        this.selectedTours = selectedTours;
-    }
+
+
 
     public Integer getNumberOfParticipants() {
         return numberOfParticipants;

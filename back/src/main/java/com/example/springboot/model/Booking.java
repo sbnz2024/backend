@@ -2,6 +2,8 @@ package com.example.springboot.model;
 
 import com.example.springboot.DTO.TourDTO;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class Booking {
     @Column(name = "number_of_participants", nullable = false)
     private Integer numberOfParticipants;
 
-    @Column(name = "total_price", nullable = false)
+    @Column(name = "total_price")
     private Double totalPrice;
 
     public Booking() {
@@ -58,6 +60,19 @@ public class Booking {
     public List<Tour> getSelectedTours() {
         return selectedTours;
     }
+
+    public List<Integer> getSelectedToursId() {
+        List<Integer> selectedToursId = new ArrayList<>();
+
+        for(Tour t: this.selectedTours) {
+            selectedToursId.add(t.getIdTour());
+        }
+
+        return selectedToursId;
+    }
+
+
+
 
     public void setSelectedTours(List<Tour> selectedTours) {
         this.selectedTours = selectedTours;

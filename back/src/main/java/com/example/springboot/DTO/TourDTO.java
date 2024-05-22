@@ -3,7 +3,9 @@ package com.example.springboot.DTO;
 import com.example.springboot.model.Tour;
 
 public class TourDTO {
-     private String tourName;
+
+    private Integer id;
+    private String tourName;
     private String tourDescription;
     private Double price;
     private Double totalPrice;
@@ -13,6 +15,16 @@ public class TourDTO {
     public TourDTO() {
     }
 
+    public TourDTO(Integer id, String tourName, String tourDescription, Double price, Double totalPrice, Integer participantsCount, Tour.TourCategory category) {
+        this.id = id;
+        this.tourName = tourName;
+        this.tourDescription = tourDescription;
+        this.price = price;
+        this.totalPrice = totalPrice;
+        this.participantsCount = participantsCount;
+        this.category = category;
+    }
+
     public TourDTO(String tourName, String tourDescription, Double price, Double totalPrice, Integer participantsCount, Tour.TourCategory category) {
         this.tourName = tourName;
         this.tourDescription = tourDescription;
@@ -20,6 +32,14 @@ public class TourDTO {
         this.totalPrice = totalPrice;
         this.participantsCount = participantsCount;
         this.category = category;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public TourDTO(Tour tour) {
