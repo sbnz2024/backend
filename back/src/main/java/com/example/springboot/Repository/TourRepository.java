@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TourRepository extends JpaRepository<Tour, Integer> {
     List<Tour> findTourByArrangementId(int arrangementId);
+    Tour findTourByidTour(int id);
 }

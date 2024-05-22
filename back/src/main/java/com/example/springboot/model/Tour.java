@@ -1,5 +1,6 @@
 package com.example.springboot.model;
 
+import com.example.springboot.DTO.TourDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
@@ -41,9 +42,28 @@ public class Tour {
     @JoinColumn(name = "arrangement_id")
     private Arrangement arrangement;
 
+    @ManyToMany(mappedBy = "selectedTours", fetch = FetchType.LAZY)
+    private List<Booking> bookings;
+
     public Tour() {
     }
 
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public Tour(TourDTO tourDTO) {
+        this.tourName = tourDTO.getTourName();
+        this.tourDescription = tourDTO.getTourDescription();
+        this.price = tourDTO.getPrice();
+        this.totalPrice = tourDTO.getTotalPrice();
+        this.participantsCount = tourDTO.getParticipantsCount();
+        this.category = tourDTO.getCategory();
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 
     // Getteri i setteri
     public Integer getIdTour() {

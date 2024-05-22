@@ -45,7 +45,7 @@ public class SecurityConfiguration {
             "/api/user/login",
             "/api/user/register",
             "/api/arrangements/recommend",
-            "/api/coordinates/current",
+            "/api/coordinates/current"
     };
 
 
